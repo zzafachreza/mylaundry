@@ -42,8 +42,8 @@ export default function Cart({navigation, route}) {
 
   const __getDataBarang = id_member => {
     axios
-      .post('https://zavalabs.com/sebatiku/api/cart.php', {
-        id_pelanggan: id_member,
+      .post('https://zavalabs.com/mylaundry/api/cart.php', {
+        id_member: id_member,
       })
       .then(res => {
         console.log('data barang,', res.data);
@@ -51,16 +51,16 @@ export default function Cart({navigation, route}) {
       });
   };
 
-  const hanldeHapus = (id, id_pelanggan) => {
-    console.log(id + id_pelanggan);
+  const hanldeHapus = (id, id_member) => {
+    console.log(id + id_member);
     axios
-      .post('https://zavalabs.com/sebatiku/api/cart_hapus.php', {
+      .post('https://zavalabs.com/mylaundry/api/cart_hapus.php', {
         id: id,
-        id_pelanggan: id_pelanggan,
+        id_member: id_member,
       })
       .then(res => {
         console.log('delete', res);
-        __getDataBarang(id_pelanggan);
+        __getDataBarang(id_member);
       });
   };
 
@@ -77,7 +77,7 @@ export default function Cart({navigation, route}) {
         renderRightActions={() => {
           return (
             <TouchableWithoutFeedback
-              onPress={() => hanldeHapus(item.id, item.id_pelanggan)}>
+              onPress={() => hanldeHapus(item.id, item.id_member)}>
               <View
                 style={{
                   // flex: 1,
@@ -129,7 +129,7 @@ export default function Cart({navigation, route}) {
                   color: colors.primary,
                   fontSize: 16,
                 }}>
-                Ukuran : {item.ukuran}
+                {item.uom}
               </Text>
             </View>
             <View style={{padding: 10}}>
@@ -184,7 +184,11 @@ export default function Cart({navigation, route}) {
           onPress={() =>
             navigation.navigate('Checkout', {
               total: sub,
-              id_pelanggan: user.id,
+              id_member: user.id,
+              nama_lengkap: user.nama_lengkap,
+              nohp: user.tlp,
+              email: user.email,
+              alamat: user.alamat,
             })
           }
           style={{

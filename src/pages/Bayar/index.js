@@ -27,6 +27,8 @@ import {showMessage} from 'react-native-flash-message';
 
 export default function Bayar({navigation, route}) {
   const [data, setData] = useState(route.params);
+
+  console.log('data dari bayar', data);
   const [loading, setLoading] = useState(false);
   console.log('pembayaran', data);
   const [foto1, setfoto1] = useState(
@@ -148,7 +150,7 @@ export default function Bayar({navigation, route}) {
     console.log('kirim ke server', data);
     setTimeout(() => {
       axios
-        .post('https://zavalabs.com/sebatiku/api/transaksi_add.php', data)
+        .post('https://zavalabs.com/mylaundry/api/transaksi_add.php', data)
         .then(res => {
           console.log(res);
           setLoading(false);
@@ -238,7 +240,7 @@ export default function Bayar({navigation, route}) {
                 fontFamily: fonts.secondary[600],
                 padding: 10,
               }}>
-              SEBATIKU
+              MYLAUNDRY
             </Text>
           </View>
           <View
@@ -264,7 +266,7 @@ export default function Bayar({navigation, route}) {
                 fontFamily: fonts.secondary[600],
                 padding: 10,
               }}>
-              Rp. {new Intl.NumberFormat().format(data.total)}
+              Rp. {new Intl.NumberFormat().format(route.params.total)}
             </Text>
           </View>
 

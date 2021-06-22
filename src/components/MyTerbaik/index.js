@@ -18,44 +18,15 @@ import 'intl/locale-data/jsonp/en';
 
 export default function MyTerbaik() {
   useEffect(() => {
-    // axios.get('https://zavalabs.com/sebatiku/api/barang.php').then(res => {
-    //   console.log(res.data);
-    //   setData(res.data);
-    //   // setData(res.data.data);
-    // });
+    axios.get('https://zavalabs.com/mylaundry/api/barang.php').then(res => {
+      console.log(res.data);
+      setData(res.data);
+      // setData(res.data.data);
+    });
   }, []);
 
   const navigation = useNavigation();
-  const [data, setData] = useState([
-    {
-      nama_barang: 'Cuci',
-      keterangan: 'Cuci Pakaian Kotor',
-      harga: 7000,
-      uom: 'Kg',
-      foto: 'https://cdn1-production-images-kly.akamaized.net/PWQ_iCfc-PXUgf_qL8iotQJpRAI=/673x379/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/3175583/original/092818600_1594346182-row-industrial-laundry-machines-laundromat-public-laundromat-with-laundry-basket-thailand_28914-1091.jpg',
-    },
-    {
-      nama_barang: 'Setrika',
-      keterangan: 'Setriak Pakaian Bersih',
-      harga: 7000,
-      uom: 'Kg',
-      foto: 'https://image.cermati.com/q_70/w2g7erdjpoec5yzokapa',
-    },
-    {
-      nama_barang: 'Boneka Kecil',
-      keterangan: 'Cuci Boneka Kecil',
-      harga: 20000,
-      uom: 'Satuan',
-      foto: 'https://images.unsplash.com/photo-1619233985563-fcba75ff25a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
-    },
-    {
-      nama_barang: 'Boneka Besar',
-      keterangan: 'Cuci Boneka Besar',
-      harga: 30000,
-      uom: 'Satuan',
-      foto: 'https://ae01.alicdn.com/kf/HTB1TO07Bh9YBuNjy0Ffq6xIsVXaD/100-260Cm-Boneka-Besar-Beruang-Besar-Kulit-Beruang-Besar-Amerika-Beruang-Kerang-Besar-Boneka-Mewah-Mainan.jpg_Q90.jpg_.webp',
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   const renderItem = ({item}) => {
     return (

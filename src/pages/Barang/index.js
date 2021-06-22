@@ -79,18 +79,18 @@ export default function Barang({navigation, route}) {
 
   const addToCart = () => {
     const kirim = {
-      id_pelanggan: user.id,
+      id_member: user.id,
       id_barang: item.id,
       nama_barang: item.nama_barang,
       qty: jumlah,
+      uom: item.uom,
       harga: item.harga,
       total: jumlah * item.harga,
-      gambar: item.foto,
-      ukuran: ukuran,
+      foto: item.foto,
     };
     console.log('kirim tok server', kirim);
     axios
-      .post('https://zavalabs.com/sebatiku/api/barang_add.php', kirim)
+      .post('https://zavalabs.com/mylaundry/api/barang_add.php', kirim)
       .then(res => {
         console.log(res);
         // navigation.navigate('Success2', {
@@ -150,7 +150,7 @@ export default function Barang({navigation, route}) {
               color: colors.white,
             }}>
             {' '}
-            {item.nama_kategori}
+            {item.nama_barang}
           </Text>
         </View>
         <View style={{backgroundColor: colors.white, padding: 10, flex: 1}}>
@@ -160,7 +160,7 @@ export default function Barang({navigation, route}) {
               fontSize: 20,
               color: colors.secondary,
             }}>
-            {item.nama_barang}
+            PER - {item.uom}
           </Text>
           <Text
             style={{
@@ -170,27 +170,7 @@ export default function Barang({navigation, route}) {
             }}>
             Rp. {new Intl.NumberFormat().format(item.harga)}
           </Text>
-          <View style={{marginTop: 10}}>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="server" type="ionicon" size={14} />
-              <Text
-                style={{
-                  left: 5,
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Ukuran
-              </Text>
-            </View>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 20,
-                color: colors.secondary,
-              }}>
-              {item.ukuran}
-            </Text>
-          </View>
+
           <View style={{marginVertical: 5}}>
             <View style={{flexDirection: 'row'}}>
               <Icon name="bookmark" type="ionicon" size={14} />
@@ -209,50 +189,7 @@ export default function Barang({navigation, route}) {
                 fontSize: 20,
                 color: colors.secondary,
               }}>
-              {item.deskripsi}
-            </Text>
-          </View>
-          <View style={{marginVertical: 5}}>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="grid" type="ionicon" size={14} />
-              <Text
-                style={{
-                  left: 5,
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Material
-              </Text>
-            </View>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 20,
-                color: colors.secondary,
-              }}>
-              {item.material}
-            </Text>
-          </View>
-          <View style={{marginVertical: 5}}>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="cube" type="ionicon" size={14} />
-              <Text
-                style={{
-                  left: 5,
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Stok
-              </Text>
-            </View>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 20,
-                left: 5,
-                color: colors.secondary,
-              }}>
-              {item.stok}
+              {item.keterangan}
             </Text>
           </View>
         </View>
@@ -268,7 +205,7 @@ export default function Barang({navigation, route}) {
       <Modalize
         withHandle={false}
         scrollViewProps={{showsVerticalScrollIndicator: false}}
-        snapPoint={350}
+        snapPoint={275}
         HeaderComponent={
           <View style={{padding: 10}}>
             <View style={{flexDirection: 'row'}}>
@@ -298,8 +235,7 @@ export default function Barang({navigation, route}) {
                     fontFamily: fonts.secondary[600],
                     color: colors.secondary,
                   }}>
-                  {' '}
-                  Sisa {new Intl.NumberFormat().format(item.stok)}
+                  PER {item.uom}
                 </Text>
               </View>
               <TouchableOpacity onPress={() => modalizeRef.current.close()}>
@@ -312,179 +248,6 @@ export default function Barang({navigation, route}) {
         ref={modalizeRef}>
         <View style={{flex: 1, height: 230}}>
           <View style={{padding: 10, flex: 1}}>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[600],
-                color: colors.primary,
-              }}>
-              Ukuran
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: 10,
-                justifyContent: 'space-between',
-              }}>
-              <TouchableOpacity
-                onPress={() => setUkuran('S')}
-                style={{
-                  borderRadius: 5,
-                  borderWidth: 1,
-                  borderColor:
-                    ukuran === 'S' ? colors.primary : colors.secondary,
-                  height: 40,
-                  width: '20%',
-                  marginRight: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                {ukuran === 'S' && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      backgroundColor: colors.primary,
-                      width: 20,
-                      borderBottomRightRadius: 10,
-                      top: 0,
-                      left: 0,
-                    }}>
-                    <Icon
-                      type="ionicon"
-                      name="checkmark"
-                      size={15}
-                      color={colors.white}
-                    />
-                  </View>
-                )}
-                <Text
-                  style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: 14,
-                    color: ukuran === 'S' ? colors.primary : colors.secondary,
-                  }}>
-                  S
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setUkuran('M')}
-                style={{
-                  borderRadius: 5,
-                  borderWidth: 1,
-                  width: '20%',
-                  borderColor:
-                    ukuran === 'M' ? colors.primary : colors.secondary,
-                  marginRight: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                {ukuran === 'M' && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      backgroundColor: colors.primary,
-                      width: 20,
-                      borderBottomRightRadius: 10,
-                      top: 0,
-                      left: 0,
-                    }}>
-                    <Icon
-                      type="ionicon"
-                      name="checkmark"
-                      size={15}
-                      color={colors.white}
-                    />
-                  </View>
-                )}
-                <Text
-                  style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: 14,
-                    color: ukuran === 'M' ? colors.primary : colors.secondary,
-                  }}>
-                  M
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setUkuran('L')}
-                style={{
-                  borderRadius: 5,
-                  borderWidth: 1,
-                  width: '20%',
-                  marginRight: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderColor:
-                    ukuran === 'L' ? colors.primary : colors.secondary,
-                }}>
-                {ukuran === 'L' && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      backgroundColor: colors.primary,
-                      width: 20,
-                      borderBottomRightRadius: 10,
-                      top: 0,
-                      left: 0,
-                    }}>
-                    <Icon
-                      type="ionicon"
-                      name="checkmark"
-                      size={15}
-                      color={colors.white}
-                    />
-                  </View>
-                )}
-                <Text
-                  style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: 14,
-                    color: ukuran === 'L' ? colors.primary : colors.secondary,
-                  }}>
-                  L
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setUkuran('XL')}
-                style={{
-                  borderRadius: 5,
-
-                  borderWidth: 1,
-                  width: '20%',
-                  marginRight: 10,
-                  borderColor:
-                    ukuran === 'XL' ? colors.primary : colors.secondary,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                {ukuran === 'XL' && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      backgroundColor: colors.primary,
-                      width: 20,
-                      borderBottomRightRadius: 10,
-                      top: 0,
-                      left: 0,
-                    }}>
-                    <Icon
-                      type="ionicon"
-                      name="checkmark"
-                      size={15}
-                      color={colors.white}
-                    />
-                  </View>
-                )}
-                <Text
-                  style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: 14,
-                    color: ukuran === 'XL' ? colors.primary : colors.secondary,
-                  }}>
-                  XL
-                </Text>
-              </TouchableOpacity>
-            </View>
-
             <View style={{flexDirection: 'row', marginTop: 20}}>
               <View style={{flex: 1}}>
                 <Text

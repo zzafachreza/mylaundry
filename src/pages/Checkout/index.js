@@ -25,20 +25,12 @@ import {showMessage} from 'react-native-flash-message';
 export default function Checkout({navigation, route}) {
   const item = route.params;
 
-  const [kirim, setKirim] = useState({
-    id_user: item.id_pelanggan,
-    total: item.total,
-    nama_lengkap: null,
-    nohp: null,
-    email: null,
-    alamat: null,
-    jasakirim: 'JNE',
-  });
+  const [kirim, setKirim] = useState(item);
 
   const simpan = () => {
-    console.log(kirim);
+    console.log(item);
 
-    navigation.navigate('Bayar', kirim);
+    navigation.navigate('Bayar', item);
   };
 
   return (
@@ -101,26 +93,6 @@ export default function Checkout({navigation, route}) {
               }
             />
             <MyGap jarak={5} />
-            <MyPicker
-              value={kirim.jasakirim}
-              onValueChange={val =>
-                setKirim({
-                  ...kirim,
-                  jasakirim: val,
-                })
-              }
-              label="Jasa Kirim"
-              data={[
-                {
-                  value: 'JNE',
-                  label: 'JNE',
-                },
-                {
-                  value: 'J&T',
-                  label: 'J&T',
-                },
-              ]}
-            />
           </View>
         </View>
       </ScrollView>
