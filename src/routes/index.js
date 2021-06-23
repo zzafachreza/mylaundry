@@ -35,6 +35,8 @@ import {
   Cart,
   Checkout,
   Bayar,
+  Pemakaian,
+  PemakaianTambah,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -91,6 +93,20 @@ export default function Router() {
       <Stack.Screen
         name="ListData"
         component={ListData}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Pemakaian"
+        component={Pemakaian}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PemakaianTambah"
+        component={PemakaianTambah}
         options={{
           headerShown: false,
         }}

@@ -6,180 +6,261 @@ import {
   SafeAreaView,
   FlatList,
   ImageBackground,
+  Image,
 } from 'react-native';
 import axios from 'axios';
 import {fonts} from '../../utils/fonts';
 import {colors} from '../../utils/colors';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
-export default function ListDetail({route}) {
+export default function ListDetail({navigation, route}) {
   const item = route.params;
-  return (
-    <ImageBackground
-      style={{
-        flex: 1,
-        padding: 10,
-      }}>
+  navigation.setOptions({title: item.kode});
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .post('https://zavalabs.com/mylaundry/api/transaksi_detail.php', {
+        kode: item.kode,
+      })
+      .then(res => {
+        console.log('detail transaksi', res.data);
+        setData(res.data);
+      });
+  }, []);
+
+  const DataPesanan = () => {
+    return (
       <View
         style={{
-          //   flex: 1,
-          padding: 10,
-          borderRadius: 10,
-          marginVertical: 10,
           backgroundColor: colors.white,
-          elevation: 1,
+          marginTop: 10,
         }}>
-        <Text style={styles.title}>
-          Ini adalah data pengecoran pada tanggal
+        <Text
+          style={{
+            fontFamily: fonts.secondary[600],
+            backgroundColor: colors.secondary,
+            padding: 10,
+            color: colors.white,
+          }}>
+          {item.status}
         </Text>
-        <Text style={styles.date}>{item.tanggal}</Text>
-        <View
+        <Text
           style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
+            fontFamily: fonts.secondary[600],
+            backgroundColor: colors.primary,
+            padding: 10,
+            color: colors.white,
           }}>
-          <View style={styles.card}>
+          {item.kode} - {item.tanggal}
+        </Text>
+        {/* --- */}
+        <View style={{flexDirection: 'row'}}>
+          <View style={{flex: 1, padding: 10}}>
             <Text
               style={{
                 fontFamily: fonts.secondary[400],
-                fontSize: 12,
-              }}>
-              Temperatur udara (Celcius)
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: fonts.secondary[600],
-              }}>
-              {item.tc} deg C
-            </Text>
-          </View>
-          <View style={styles.card}>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 12,
-              }}>
-              Temperatur beton (Celcius)
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: fonts.secondary[600],
-              }}>
-              {item.ta} deg C
-            </Text>
-          </View>
-        </View>
+                backgroundColor: colors.white,
 
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <View style={styles.card}>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 12,
+                color: colors.black,
               }}>
-              Kelembaban relatif (%)
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: fonts.secondary[600],
-              }}>
-              {item.r}%
+              Nama
             </Text>
           </View>
-          <View style={styles.card}>
-            <Text
-              style={{
-                fontFamily: fonts.secondary[400],
-                fontSize: 12,
-              }}>
-              Kecepatan angin (kph)
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: fonts.secondary[600],
-              }}>
-              {item.v} kph
-            </Text>
-          </View>
-        </View>
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: colors.primary,
-            borderRadius: 10,
-            // flex: 1,
-            justifyContent: 'center',
-            height: 80,
-            margin: 5,
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              fontFamily: fonts.secondary[400],
-              fontSize: 12,
-            }}>
-            Tingkat penguapan beton (Evaporation Rate)
-          </Text>
           <View
             style={{
-              flexDirection: 'row',
+              justifyContent: 'center',
+              flex: 2,
             }}>
             <Text
               style={{
-                fontSize: 18,
-                lineHeight: 30,
                 fontFamily: fonts.secondary[600],
+                backgroundColor: colors.white,
+                fontSize: 14,
+                padding: 10,
+                color: colors.black,
               }}>
-              {item.e} kg/m
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                lineHeight: 25,
-                fontFamily: fonts.secondary[600],
-              }}>
-              2
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                lineHeight: 30,
-                fontFamily: fonts.secondary[600],
-              }}>
-              /hr
+              {item.nama_pemesan}
             </Text>
           </View>
         </View>
+        {/* ---- */}
+
+        {/* --- */}
+        <View
+          style={{
+            flexDirection: 'row',
+            borderTopWidth: 1,
+            borderTopColor: '#EEEEEE',
+          }}>
+          <View style={{flex: 1, padding: 10}}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[400],
+                backgroundColor: colors.white,
+
+                color: colors.black,
+              }}>
+              No Hp
+            </Text>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              flex: 2,
+            }}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[600],
+                backgroundColor: colors.white,
+                fontSize: 14,
+                padding: 10,
+                color: colors.black,
+              }}>
+              {item.telepon_pemesan}
+            </Text>
+          </View>
+        </View>
+        {/* ---- */}
+        {/* --- */}
+        <View
+          style={{
+            flexDirection: 'row',
+            borderTopWidth: 1,
+            borderTopColor: '#EEEEEE',
+          }}>
+          <View style={{flex: 1, padding: 10}}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[400],
+                backgroundColor: colors.white,
+
+                color: colors.black,
+              }}>
+              Alamat
+            </Text>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              flex: 2,
+            }}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[600],
+                backgroundColor: colors.white,
+                fontSize: 14,
+                padding: 10,
+                color: colors.black,
+              }}>
+              {item.alamat_pemesan}
+            </Text>
+          </View>
+        </View>
+        {/* ---- */}
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}>
+      <View style={{padding: 10, flex: 1}}>
+        <DataPesanan />
+        <Text
+          style={{
+            fontFamily: fonts.secondary[600],
+            backgroundColor: '#DEDEDE',
+            padding: 10,
+            color: colors.black,
+          }}>
+          DETAIL
+        </Text>
+        <ScrollView>
+          {data.map(item => {
+            return (
+              <View
+                style={{
+                  padding: 10,
+                  // borderWidth: 1,
+                  elevation: 1,
+                  marginVertical: 2,
+                  // borderColor: colors.primary,
+                  backgroundColor: colors.white,
+                }}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{padding: 5}}>
+                    <Image
+                      resizeMode="contain"
+                      source={{uri: item.foto}}
+                      style={{width: 100, aspectRatio: 2}}
+                    />
+                  </View>
+                  <View style={{padding: 5, flex: 1}}>
+                    <Text style={{fontFamily: fonts.secondary[600]}}>
+                      {item.nama_barang}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                          marginRight: 5,
+                        }}>
+                        {item.harga}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                        }}>
+                        X
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                          marginHorizontal: 5,
+                        }}>
+                        {item.qty} {item.uom}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text
+                      style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 18,
+                        color: colors.primary,
+                      }}>
+                      {item.total}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
       <View
         style={{
-          padding: 10,
-          borderWidth: 1,
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          padding: 20,
+          backgroundColor: colors.white,
         }}>
         <Text
           style={{
-            fontSize: 12,
-            lineHeight: 30,
             fontFamily: fonts.secondary[600],
+            fontSize: 30,
+            color: colors.primary,
           }}>
-          Deskripsi keterangan saat pengecoran :
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            lineHeight: 30,
-            fontFamily: fonts.secondary[400],
-          }}>
-          {item.nama}
+          Rp. {item.total}
         </Text>
       </View>
-    </ImageBackground>
+    </SafeAreaView>
   );
 }
 

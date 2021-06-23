@@ -26,7 +26,8 @@ import Barang from './Barang';
 import Cart from './Cart';
 import Checkout from './Checkout';
 import Bayar from './Bayar';
-
+import Pemakaian from './Pemakaian';
+import PemakaianTambah from './PemakaianTambah';
 export {
   Splash,
   GetStarted,
@@ -55,5 +56,7 @@ export {
   Barang,
   Cart,
   Checkout,
+  Pemakaian,
+  PemakaianTambah,
   Bayar,
 };

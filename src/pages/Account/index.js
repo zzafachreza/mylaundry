@@ -32,7 +32,7 @@ export default function Account({navigation}) {
 
   return (
     <ImageBackground
-      source={require('../../assets/back.jpeg')}
+      // source={require('../../assets/back.jpeg')}
       style={{
         flex: 1,
       }}>
@@ -76,16 +76,16 @@ export default function Account({navigation}) {
               fontWeight: 'bold',
               top: 10,
             }}>
-            {user.username}
+            {user.nama_lengkap}
           </Text>
           <Divider style={{backgroundColor: colors.border, height: 1}} />
-          {/* <Text
+          <Text
             style={{
               fontSize: 16,
               top: 10,
             }}>
             {user.tlp}
-          </Text> */}
+          </Text>
         </View>
         <View
           style={{
@@ -108,6 +108,32 @@ export default function Account({navigation}) {
             }
             buttonStyle={{
               backgroundColor: 'grey',
+              height: 45,
+              marginTop: '5%',
+              borderRadius: 10,
+              marginBottom: 20,
+              padding: 20,
+              margin: 5,
+            }}
+          />
+
+          <Button
+            onPress={() => {
+              navigation.navigate('Pemakaian');
+            }}
+            title="Menu Kebutuhan"
+            icon={
+              <Icon
+                style={{
+                  marginRight: 5,
+                }}
+                name="sign-out"
+                size={15}
+                color="white"
+              />
+            }
+            buttonStyle={{
+              backgroundColor: colors.primary,
               height: 45,
               marginTop: '5%',
               borderRadius: 10,

@@ -122,17 +122,7 @@ export default function Home({navigation}) {
               source={require('../../assets/logo.png')}
             />
           </View> */}
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL('https://goo.gl/maps/YrG3zJRqn9t7fEcC9');
-            }}
-            style={{
-              padding: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon type="ionicon" name="map-outline" color={colors.white} />
-          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => navigation.navigate('Cart')}
             style={{

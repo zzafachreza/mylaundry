@@ -117,12 +117,12 @@ export default function MyKategori() {
               <IconCategory
                 title={item.value}
                 iconname={item.icon}
-                onPress={() =>
-                  navigation.navigate('Kategori', {
-                    kategori: item.value,
-                    menu: item.value,
-                  })
-                }
+                // onPress={() =>
+                //   navigation.navigate('Kategori', {
+                //     kategori: item.value,
+                //     menu: item.value,
+                //   })
+                // }
               />
             );
           })}

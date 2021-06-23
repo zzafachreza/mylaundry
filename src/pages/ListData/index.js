@@ -18,7 +18,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {MyButton} from '../../components';
 import {useIsFocused} from '@react-navigation/native';
 
-export default function ListData() {
+export default function ListData({navigation}) {
   const isFocused = useIsFocused();
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
@@ -34,8 +34,8 @@ export default function ListData() {
       // console.log(res);
 
       axios
-        .post('https://zavalabs.com/sebatiku/api/transaksi.php', {
-          id_pelanggan: res.id,
+        .post('https://zavalabs.com/mylaundry/api/transaksi.php', {
+          id_member: res.id,
         })
         .then(res => {
           // console.log(res.data);
@@ -50,11 +50,11 @@ export default function ListData() {
       // console.log(res);
 
       axios
-        .post('https://zavalabs.com/sebatiku/api/transaksi.php', {
-          id_pelanggan: res.id,
+        .post('https://zavalabs.com/mylaundry/api/transaksi.php', {
+          id_member: res.id,
         })
         .then(res => {
-          // console.log(res.data);
+          console.log(res.data);
           setData(res.data);
         });
     });
@@ -81,7 +81,11 @@ export default function ListData() {
                 borderWidth: 1,
                 backgroundColor: colors.white,
               }}>
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                  console.log('cek detail', item);
+                  navigation.navigate('ListDetail', item);
+                }}
                 style={{
                   flexDirection: 'row',
                 }}>
@@ -106,32 +110,20 @@ export default function ListData() {
                       fontSize: 16,
                       color: colors.primary,
                     }}>
-                    {item.nama_lengkap}
+                    {item.nama_pemesan}
                   </Text>
                   <Text
                     style={{
                       fontFamily: fonts.secondary[400],
                     }}>
-                    {item.tgl_pesanan}
+                    {item.tanggal}
                   </Text>
                 </View>
-                <View></View>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <View style={{flex: 1, padding: 10}}>
-                  <Text
-                    style={{
-                      fontFamily: fonts.secondary[600],
-                      fontSize: 18,
-                    }}>
-                    {item.jasakirim}
-                  </Text>
-                </View>
-                <View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
                   <Text
                     style={{
                       // borderBottomRightRadius: 10,
@@ -144,36 +136,36 @@ export default function ListData() {
                     Rp. {item.total}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
 
-              {item.status === 'menunggu' && (
+              {item.status === 'SEDANG DIPROSES' && (
                 <View style={{flexDirection: 'row'}}>
                   <Text
                     style={{
                       flex: 1,
-                      backgroundColor: colors.warning,
+                      backgroundColor: '#DEDEDE',
                       color: colors.black,
                       padding: 10,
                       fontFamily: fonts.secondary[600],
                     }}>
-                    Sedang Dikemas
+                    SEDANG DIPROSES
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
                       axios
                         .post(
-                          'https://zavalabs.com/sebatiku/api/transaksi_hapus.php',
+                          'https://zavalabs.com/mylaundry/api/transaksi_hapus.php',
                           {
-                            id_pelanggan: item.id_pelanggan,
-                            notransaksi: item.kode,
+                            id_member: item.id_member,
+                            kode: item.kode,
                           },
                         )
                         .then(res => {
                           axios
                             .post(
-                              'https://zavalabs.com/sebatiku/api/transaksi.php',
+                              'https://zavalabs.com/mylaundry/api/transaksi.php',
                               {
-                                id_pelanggan: item.id_pelanggan,
+                                id_member: item.id_member,
                               },
                             )
                             .then(res => {
@@ -197,77 +189,7 @@ export default function ListData() {
                 </View>
               )}
 
-              {item.status === 'dikirim' && (
-                <>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text
-                      style={{
-                        flex: 1,
-                        backgroundColor: colors.border,
-                        color: colors.black,
-                        padding: 10,
-                        fontFamily: fonts.secondary[600],
-                      }}>
-                      Sedang Dikirim
-                    </Text>
-
-                    <Text
-                      style={{
-                        flex: 2,
-                        backgroundColor: colors.primary,
-                        color: colors.black,
-
-                        padding: 10,
-                        fontFamily: fonts.secondary[600],
-                      }}>
-                      No.Resi : {item.noresi}
-                    </Text>
-                  </View>
-                  <View>
-                    <TouchableOpacity
-                      onPress={() => {
-                        axios
-                          .post(
-                            'https://zavalabs.com/sebatiku/api/transaksi_terima.php',
-                            {
-                              id_pelanggan: item.id_pelanggan,
-                              notransaksi: item.kode,
-                            },
-                          )
-                          .then(res => {
-                            axios
-                              .post(
-                                'https://zavalabs.com/sebatiku/api/transaksi.php',
-                                {
-                                  id_pelanggan: item.id_pelanggan,
-                                },
-                              )
-                              .then(res => {
-                                console.log(res.data);
-                                setData(res.data);
-                              });
-                          });
-                      }}
-                      style={{
-                        padding: 20,
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: colors.secondary,
-                      }}>
-                      <Text
-                        style={{
-                          fontFamily: fonts.secondary[600],
-                          color: colors.white,
-                        }}>
-                        Terima Pesanan
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </>
-              )}
-
-              {item.status === 'selesai' && (
+              {item.status === 'SELESAI' && (
                 <View style={{flexDirection: 'row'}}>
                   <Text
                     style={{
@@ -278,7 +200,7 @@ export default function ListData() {
                       fontFamily: fonts.secondary[600],
                       textAlign: 'center',
                     }}>
-                    Selesai
+                    SELESAI
                   </Text>
                 </View>
               )}
