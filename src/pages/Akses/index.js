@@ -40,28 +40,17 @@ export default function Login({navigation}) {
     console.log(data);
     setTimeout(() => {
       axios
-        .post('https://zavalabs.com/mylaundry/api/login.php', data)
+        .post('https://zavalabs.com/mylaundry/api/akses.php', data)
         .then(res => {
-          console.log(res.data);
-          setLoading(false);
-          if (res.data.kode == 50) {
-            showMessage({
-              type: 'danger',
-              message: res.data.msg,
-            });
+          if (res.data == 'success') {
+            navigation.replace('Pemakaian');
           } else {
-            storeData('user', res.data);
-            axios
-              .post('https://zavalabs.com/mylaundry/api/update_token.php', {
-                id_member: res.data.id,
-                token: token,
-              })
-              .then(res => {
-                console.log('update token', res);
-              });
-
-            navigation.replace('MainApp');
+            showMessage({
+              message: 'Maaf Kode Akses Salah !',
+              type: 'danger',
+            });
           }
+          setLoading(false);
         });
     }, 1200);
   };
@@ -87,7 +76,7 @@ export default function Login({navigation}) {
               color: colors.black,
               // maxWidth: 230,
             }}>
-            Silahkan login untuk masuk ke aplikasi{' '}
+            Ini adalah Fitur Untuk Admin
             <Text
               style={{
                 fontFamily: fonts.secondary[600],
@@ -101,21 +90,10 @@ export default function Login({navigation}) {
 
           <MyGap jarak={20} />
           <MyInput
-            label="Email"
-            iconname="mail"
-            value={data.nama_lengkap}
-            onChangeText={value =>
-              setData({
-                ...data,
-                email: value,
-              })
-            }
-          />
-          <MyGap jarak={20} />
-          <MyInput
-            label="Password"
+            label="Masukan Kode Akses"
             iconname="key"
             secureTextEntry
+            autoFocus={true}
             onChangeText={value =>
               setData({
                 ...data,
@@ -126,7 +104,7 @@ export default function Login({navigation}) {
           <MyGap jarak={40} />
           <MyButton
             warna={colors.primary}
-            title="LOGIN"
+            title="LANJUT FITUR ADMIN"
             Icons="log-in"
             onPress={masuk}
           />

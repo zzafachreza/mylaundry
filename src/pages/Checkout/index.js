@@ -33,6 +33,12 @@ export default function Checkout({navigation, route}) {
     navigation.navigate('Bayar', item);
   };
 
+  const simpan2 = () => {
+    console.log(item);
+
+    navigation.navigate('Bayar2', item);
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -99,8 +105,17 @@ export default function Checkout({navigation, route}) {
       <View style={{padding: 10}}>
         <MyButton
           onPress={simpan}
-          title="KONFIRMASI PEMBAYARAN"
+          title="PEMBAYARAN VIA TRANSFER"
           warna={colors.secondary}
+          style={{
+            justifyContent: 'flex-end',
+          }}
+        />
+        <MyGap jarak={10} />
+        <MyButton
+          onPress={simpan2}
+          title="PEMBAYARAN VIA COD"
+          warna={colors.primary}
           style={{
             justifyContent: 'flex-end',
           }}

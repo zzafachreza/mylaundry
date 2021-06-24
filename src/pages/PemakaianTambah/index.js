@@ -31,7 +31,7 @@ export default function PemakaianTambah() {
     return (
       <TouchableOpacity
         style={styles.card}
-        // onPress={() => navigation.navigate('Barang', item)}
+        onPress={() => navigation.navigate('BarangPemakaian', item)}
         activeOpacity={1.0}>
         <Image style={styles.image} source={{uri: item.foto}} />
         <View

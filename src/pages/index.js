@@ -26,8 +26,12 @@ import Barang from './Barang';
 import Cart from './Cart';
 import Checkout from './Checkout';
 import Bayar from './Bayar';
+import Bayar2 from './Bayar2';
 import Pemakaian from './Pemakaian';
 import PemakaianTambah from './PemakaianTambah';
+import BarangPemakaian from './BarangPemakaian';
+import Akses from './Akses';
+
 export {
   Splash,
   GetStarted,
@@ -59,4 +63,7 @@ export {
   Pemakaian,
   PemakaianTambah,
   Bayar,
+  Bayar2,
+  BarangPemakaian,
+  Akses,
 };

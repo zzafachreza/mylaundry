@@ -37,6 +37,9 @@ import {
   Bayar,
   Pemakaian,
   PemakaianTambah,
+  BarangPemakaian,
+  Akses,
+  Bayar2,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -301,7 +304,34 @@ export default function Router() {
         name="Bayar"
         component={Bayar}
         options={({route, navigation}) => ({
-          title: 'Pembayaran',
+          title: 'PEMBAYARAN VIA TRANSFER',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            elevation: 0, // remove shadow on Android
+          },
+          cardStyleInterpolator: ({current, layouts}) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        })}
+      />
+
+      <Stack.Screen
+        name="Bayar2"
+        component={Bayar2}
+        options={({route, navigation}) => ({
+          title: 'PEMBAYARAN VIA COD',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: colors.primary,
@@ -329,6 +359,60 @@ export default function Router() {
         component={Barang}
         options={({route, navigation}) => ({
           title: 'Detail Barang',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            elevation: 0, // remove shadow on Android
+          },
+          cardStyleInterpolator: ({current, layouts}) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        })}
+      />
+
+      <Stack.Screen
+        name="BarangPemakaian"
+        component={BarangPemakaian}
+        options={({route, navigation}) => ({
+          title: 'Detail Barang',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            elevation: 0, // remove shadow on Android
+          },
+          cardStyleInterpolator: ({current, layouts}) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        })}
+      />
+
+      <Stack.Screen
+        name="Akses"
+        component={Akses}
+        options={({route, navigation}) => ({
+          title: 'Masukan Kode Akses',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: colors.primary,

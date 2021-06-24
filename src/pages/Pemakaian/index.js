@@ -7,22 +7,51 @@ import {
   FlatList,
   ImageBackground,
   Image,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import axios from 'axios';
 import {fonts} from '../../utils/fonts';
 import {colors} from '../../utils/colors';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  TouchableOpacity,
+  Swipeable,
+} from 'react-native-gesture-handler';
 import {Icon} from 'react-native-elements';
+import {useIsFocused} from '@react-navigation/native';
+import {getData} from '../../utils/localStorage';
 
-export default function Pemakaian({navigation}) {
+export default function Pemakaian({navigation, route}) {
   const [data, setData] = useState([]);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
+    if (isFocused) {
+      console.log('called');
+
+      getData();
+    }
+  }, [isFocused]);
+
+  const getData = () => {
     axios.post('https://zavalabs.com/mylaundry/api/pemakaian.php').then(res => {
       console.log('detail transaksi', res.data);
       setData(res.data);
     });
-  }, []);
+  };
+
+  const hanldeHapus = id => {
+    axios
+      .post('https://zavalabs.com/mylaundry/api/barang_pemakaian_hapus.php', {
+        id: id,
+      })
+      .then(res => {
+        console.log('detail transaksi', res.data);
+        getData();
+      });
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -67,73 +96,105 @@ export default function Pemakaian({navigation}) {
       <ScrollView>
         {data.map(item => {
           return (
-            <View
-              style={{
-                padding: 10,
-                // borderWidth: 1,
-                elevation: 1,
-                marginVertical: 2,
-                // borderColor: colors.primary,
-                backgroundColor: colors.white,
-              }}>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  color: colors.secondary,
-                }}>
-                {item.tanggal}
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{padding: 5}}>
-                  <Image
-                    resizeMode="contain"
-                    source={{uri: item.foto}}
-                    style={{width: 100, aspectRatio: 2}}
-                  />
-                </View>
-                <View style={{padding: 5, flex: 1}}>
-                  <Text style={{fontFamily: fonts.secondary[600]}}>
-                    {item.nama_barang}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                    }}>
-                    <Text
+            <Swipeable
+              renderRightActions={() => {
+                return (
+                  <TouchableWithoutFeedback
+                    onPress={() => hanldeHapus(item.id)}>
+                    <View
                       style={{
-                        fontFamily: fonts.secondary[400],
-                        marginRight: 5,
+                        // flex: 1,
+                        width: 100,
+                        //   backgroundColor: 'blue',
+                        // padding: 20,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}>
-                      {item.harga} per {item.uom}
+                      <Icon
+                        type="ionicon"
+                        name="trash"
+                        size={40}
+                        color={colors.danger}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
+                );
+              }}>
+              <View
+                style={{
+                  padding: 10,
+                  // borderWidth: 1,
+                  elevation: 1,
+                  marginVertical: 2,
+                  // borderColor: colors.primary,
+                  backgroundColor: colors.white,
+                }}>
+                <Text
+                  style={{
+                    fontFamily: fonts.secondary[600],
+                    color: colors.secondary,
+                  }}>
+                  {item.tanggal}
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{padding: 5}}>
+                    <Image
+                      resizeMode="contain"
+                      source={{uri: item.foto}}
+                      style={{width: 100, aspectRatio: 2}}
+                    />
+                  </View>
+                  <View style={{padding: 5, flex: 1}}>
+                    <Text style={{fontFamily: fonts.secondary[600]}}>
+                      {item.nama_barang}
                     </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                          marginRight: 5,
+                        }}>
+                        {item.harga} per {item.uom}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                          color: colors.primary,
+                        }}>
+                        X
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: fonts.secondary[400],
+                          marginHorizontal: 5,
+                        }}>
+                        {item.qty}
+                      </Text>
+                    </View>
                     <Text
                       style={{
                         fontFamily: fonts.secondary[400],
                         color: colors.primary,
                       }}>
-                      X
+                      {item.keterangan}
                     </Text>
+                  </View>
+                  <View style={{justifyContent: 'center'}}>
                     <Text
                       style={{
-                        fontFamily: fonts.secondary[400],
-                        marginHorizontal: 5,
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 18,
+                        color: colors.primary,
                       }}>
-                      {item.qty}
+                      {item.total}
                     </Text>
                   </View>
                 </View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text
-                    style={{
-                      fontFamily: fonts.secondary[600],
-                      fontSize: 18,
-                      color: colors.primary,
-                    }}>
-                    {item.total}
-                  </Text>
-                </View>
               </View>
-            </View>
+            </Swipeable>
           );
         })}
       </ScrollView>

@@ -119,7 +119,7 @@ export default function Account({navigation}) {
 
           <Button
             onPress={() => {
-              navigation.navigate('Pemakaian');
+              navigation.navigate('Akses');
             }}
             title="Menu Kebutuhan"
             icon={

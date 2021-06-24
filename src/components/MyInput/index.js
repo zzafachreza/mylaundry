@@ -15,6 +15,7 @@ export default function MyInput({
   secureTextEntry,
   styleInput,
   placeholder,
+  autoFocus,
   label2,
   styleLabel,
   colorIcon = colors.primary,
@@ -53,6 +54,7 @@ export default function MyInput({
         </Text>
       )}
       <TextInput
+        autoFocus={autoFocus}
         onFocus={onFocus}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}

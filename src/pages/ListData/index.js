@@ -45,20 +45,22 @@ export default function ListData({navigation}) {
   });
 
   useEffect(() => {
-    getData('user').then(res => {
-      setUser(res);
-      // console.log(res);
+    if (isFocused) {
+      getData('user').then(res => {
+        setUser(res);
+        // console.log(res);
 
-      axios
-        .post('https://zavalabs.com/mylaundry/api/transaksi.php', {
-          id_member: res.id,
-        })
-        .then(res => {
-          console.log(res.data);
-          setData(res.data);
-        });
-    });
-  }, []);
+        axios
+          .post('https://zavalabs.com/mylaundry/api/transaksi.php', {
+            id_member: res.id,
+          })
+          .then(res => {
+            console.log(res.data);
+            setData(res.data);
+          });
+      });
+    }
+  }, [isFocused]);
 
   return (
     <SafeAreaView
