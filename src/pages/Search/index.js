@@ -45,13 +45,15 @@ export default function Search({navigation, route}) {
             style={{
               fontFamily: fonts.secondary[600],
               fontSize: 14,
-              backgroundColor: colors.primary,
-              paddingHorizontal: 20,
+              flex: 1,
+              backgroundColor: colors.secondary,
+              paddingHorizontal: 10,
+              paddingVertical: 5,
               // borderBottomLeftRadius: 20,
-              borderTopRightRadius: 20,
+              // borderTopRightRadius: 20,
               color: colors.white,
             }}>
-            {item.nama_kategori}
+            {item.nama_barang}
           </Text>
         </View>
         <View style={styles.detailsContainer}>
@@ -61,35 +63,15 @@ export default function Search({navigation, route}) {
             }}>
             <Text style={styles.title}>
               {' '}
-              Rp. {new Intl.NumberFormat().format(item.harga)}
+              Rp. {new Intl.NumberFormat().format(item.harga)} / {item.uom}
             </Text>
           </View>
           <View
             style={{
               flex: 1,
             }}>
-            <Text style={styles.subTitle}>{item.nama_barang}</Text>
+            <Text style={styles.subTitle}>{item.keterangan}</Text>
           </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-          }}>
-          <Icon name="storefront" color={colors.secondary} />
-          <Text
-            style={{
-              fontFamily: fonts.secondary[600],
-              fontSize: 14,
-              padding: 3,
-              backgroundColor: colors.secondary,
-              borderTopLeftRadius: 20,
-              paddingHorizontal: 20,
-              color: colors.white,
-            }}>
-            {item.nama_toko}
-          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -223,6 +205,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   card: {
+    flex: 0.5,
     shadowColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
@@ -238,7 +221,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'white',
     marginBottom: 20,
-    flex: 1,
+
     marginHorizontal: 5,
   },
   image: {

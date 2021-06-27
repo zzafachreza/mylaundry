@@ -15,6 +15,7 @@ import {colors} from '../../utils/colors';
 import {fonts} from '../../utils/fonts';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import {color} from 'react-native-elements/dist/helpers';
 
 export default function MyTerbaik() {
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function MyTerbaik() {
               fontFamily: fonts.secondary[600],
               fontSize: 14,
               flex: 1,
-              backgroundColor: colors.primary,
+              backgroundColor: colors.secondary,
               paddingHorizontal: 10,
               paddingVertical: 5,
               // borderBottomLeftRadius: 20,
@@ -83,7 +84,7 @@ export default function MyTerbaik() {
         style={{
           flex: 1,
           padding: 10,
-          backgroundColor: '#FFF',
+          backgroundColor: colors.primary,
         }}>
         <View
           style={{
@@ -92,11 +93,11 @@ export default function MyTerbaik() {
             alignItems: 'center',
             paddingVertical: 5,
           }}>
-          <Icon type="ionicon" name="grid" color={colors.primary} size={16} />
+          <Icon type="ionicon" name="grid" color={colors.white} size={16} />
           <Text
             style={{
-              fontFamily: 'Montserrat-SemiBold',
-              color: colors.primary,
+              fontFamily: fonts.secondary[600],
+              color: colors.white,
               left: 10,
               fontSize: 16,
             }}>
@@ -104,7 +105,7 @@ export default function MyTerbaik() {
           </Text>
         </View>
         <FlatList
-          // numColumns={2}
+          numColumns={2}
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id}
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'white',
     marginBottom: 20,
-    flex: 1,
+    flex: 0.5,
     marginHorizontal: 5,
   },
   image: {

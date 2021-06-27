@@ -181,7 +181,7 @@ export default function Home({navigation}) {
           </TouchableNativeFeedback>
         </View>
         <MyCarouser />
-        <MyKategori />
+        {/* <MyKategori /> */}
         <MyTerbaik />
       </ScrollView>
     </ImageBackground>
