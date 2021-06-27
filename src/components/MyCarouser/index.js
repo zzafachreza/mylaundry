@@ -7,7 +7,7 @@ import {
   ImageBackground,
   TouchableNativeFeedback,
 } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../utils/colors';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
@@ -27,61 +27,53 @@ export default function MyCarouser() {
 
   const [data, setData] = useState([
     {
-      image:
-        'https://image.freepik.com/free-photo/bedroom-interior_1098-15128.jpg',
+      image: require('../../assets/slide1.png'),
     },
     {
-      image:
-        'https://image.freepik.com/free-photo/shirt-clothes_74190-5086.jpg',
+      image: require('../../assets/slide2.png'),
     },
     {
-      image:
-        'https://image.freepik.com/free-photo/knitted-blankets-close-up_23-2148832361.jpg',
+      image: require('../../assets/slide3.png'),
     },
   ]);
 
+  const Pagination = () => {
+    const {entries, activeSlide} = useState();
+
+    return (
+      <Pagination
+        dotsLength={entries.length}
+        activeDotIndex={activeSlide}
+        containerStyle={{backgroundColor: 'rgba(0, 0, 0, 0.75)'}}
+        dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: 'rgba(255, 255, 255, 0.92)',
+        }}
+        inactiveDotStyle={
+          {
+            // Define styles for inactive dots here
+          }
+        }
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+      />
+    );
+  };
+
   const _renderItem = ({item, index}) => {
     return (
-      <TouchableNativeFeedback
-        onPress={() => {
-          navigation.navigate('Berita', item);
-        }}>
+      <TouchableNativeFeedback>
         <ImageBackground
           key={item.id}
-          source={{uri: item.image}}
+          resizeMode="contain"
+          source={item.image}
           style={{
-            height: Math.round((windowWidth * 9) / 16),
-          }}>
-          {/* <View
-            style={{
-              backgroundColor: colors.primary,
-              position: 'absolute',
-              // maxWidth: 200,
-              bottom: 0,
-              right: 0,
-              borderTopLeftRadius: 20,
-              // borderBottomRightRadius: 20,
-              opacity: 0.9,
-              padding: 10,
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: fonts.secondary[600],
-                color: '#FFF',
-              }}>
-              {item.judul}
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: fonts.secondary[400],
-                color: colors.black,
-              }}>
-              {item.desc}
-            </Text>
-          </View> */}
-        </ImageBackground>
+            height: Math.round((windowWidth * 9) / 15),
+          }}
+        />
       </TouchableNativeFeedback>
     );
   };
@@ -89,7 +81,7 @@ export default function MyCarouser() {
   return (
     <View
       style={{
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.white,
       }}>
       <Carousel
         // layout="stack"
@@ -103,7 +95,7 @@ export default function MyCarouser() {
         autoplayDelay={2000}
         autoplayInterval={3000}
         onSnapToItem={index => setActiveSlide(index)}
-        activeAnimationType="spring"
+        activeAnimationType="timing"
         loop={true}
       />
     </View>

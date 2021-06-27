@@ -19,23 +19,64 @@ import {color} from 'react-native-elements/dist/helpers';
 
 export default function MyTerbaik() {
   useEffect(() => {
-    axios.get('https://zavalabs.com/mylaundry/api/barang.php').then(res => {
-      console.log(res.data);
-      setData(res.data);
-      // setData(res.data.data);
-    });
+    // axios.get('https://zavalabs.com/mylaundry/api/barang.php').then(res => {
+    //   console.log(res.data);
+    //   setData(res.data);
+    //   // setData(res.data.data);
+    // });
   }, []);
 
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      id: '1',
+      nama_barang: 'FULL LAUNDRY',
+      foto: require('../../assets/full.png'),
+      menu: 'Search2',
+    },
+    {
+      id: '2',
+      nama_barang: 'SETRIKA',
+      foto: require('../../assets/setrika.png'),
+      menu: 'Search2',
+    },
+    {
+      id: '3',
+      nama_barang: 'CUCI',
+      foto: require('../../assets/cuci.png'),
+      menu: 'Search2',
+    },
+    {
+      id: '4',
+      nama_barang: 'BED COVER',
+      foto: require('../../assets/bedcover.png'),
+      menu: 'Search2',
+    },
+    {
+      id: '5',
+      nama_barang: 'BONEKA',
+      foto: require('../../assets/boneka.png'),
+      menu: 'Search2',
+    },
+    {
+      id: '6',
+      nama_barang: 'MENU ADMIN',
+      foto: require('../../assets/Admin.png'),
+      menu: 'Akses',
+    },
+  ]);
 
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => navigation.navigate('Barang', item)}
+        onPress={() =>
+          navigation.navigate(item.menu, {
+            key: item.nama_barang,
+          })
+        }
         activeOpacity={1.0}>
-        <Image style={styles.image} source={{uri: item.foto}} />
+        <Image style={styles.image} source={item.foto} />
         <View
           style={{
             flexDirection: 'row',
@@ -49,30 +90,14 @@ export default function MyTerbaik() {
               flex: 1,
               backgroundColor: colors.secondary,
               paddingHorizontal: 10,
-              paddingVertical: 5,
+              paddingVertical: 10,
               // borderBottomLeftRadius: 20,
               // borderTopRightRadius: 20,
               color: colors.white,
+              textAlign: 'center',
             }}>
             {item.nama_barang}
           </Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <View
-            style={{
-              flex: 1,
-            }}>
-            <Text style={styles.title}>
-              {' '}
-              Rp. {new Intl.NumberFormat().format(item.harga)} / {item.uom}
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-            }}>
-            <Text style={styles.subTitle}>{item.keterangan}</Text>
-          </View>
         </View>
       </TouchableOpacity>
     );

@@ -40,6 +40,7 @@ import {
   BarangPemakaian,
   Akses,
   Bayar2,
+  Search2,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -209,6 +210,33 @@ export default function Router() {
         options={{
           headerShown: false,
         }}
+      />
+
+      <Stack.Screen
+        name="Search2"
+        component={Search2}
+        options={({route, navigation}) => ({
+          title: 'Layanan',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            elevation: 0, // remove shadow on Android
+          },
+          cardStyleInterpolator: ({current, layouts}) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        })}
       />
 
       <Stack.Screen

@@ -18,7 +18,7 @@ import {fonts} from '../../utils/fonts';
 import LottieView from 'lottie-react-native';
 import {getData} from '../../utils/localStorage';
 import {FlatListSlider} from 'react-native-flatlist-slider';
-import {Preview} from '../../components';
+import {Preview, MyGap} from '../../components';
 import {Icon} from 'react-native-elements';
 import MyNews from '../../components/MyNews';
 import MyCarouser from '../../components/MyCarouser';
@@ -133,7 +133,12 @@ export default function Home({navigation}) {
             <Icon type="ionicon" name="cart-outline" color={colors.white} />
           </TouchableOpacity>
         </View>
-        <View style={{padding: 10, backgroundColor: colors.primary}}>
+        <View
+          style={{
+            padding: 10,
+            backgroundColor: colors.primary,
+            paddingBottom: 20,
+          }}>
           <TouchableNativeFeedback
             onPress={() => navigation.navigate('Search')}>
             <View
@@ -180,7 +185,9 @@ export default function Home({navigation}) {
             </View>
           </TouchableNativeFeedback>
         </View>
+
         <MyCarouser />
+
         {/* <MyKategori /> */}
         <MyTerbaik />
       </ScrollView>

@@ -15,6 +15,7 @@ import Pelamar from './Pelamar';
 import PelamarDetail from './PelamarDetail';
 import PelamarSelesai from './PelamarSelesai';
 import Search from './Search';
+import Search2 from './Search2';
 import Booking from './Booking';
 import BookingDetail from './BookingDetail';
 import Kategori from './Kategori';
@@ -50,6 +51,7 @@ export {
   PelamarDetail,
   PelamarSelesai,
   Search,
+  Search2,
   Booking,
   BookingDetail,
   Kategori,

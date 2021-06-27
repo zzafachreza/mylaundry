@@ -11,6 +11,7 @@ import {
 } from 'react-native-elements';
 import {storeData, getData} from '../../utils/localStorage';
 import {colors} from '../../utils/colors';
+import {fonts} from '../../utils/fonts';
 
 export default function Account({navigation}) {
   const [user, setUser] = useState({});
@@ -35,6 +36,7 @@ export default function Account({navigation}) {
       // source={require('../../assets/back.jpeg')}
       style={{
         flex: 1,
+        backgroundColor: colors.primary,
       }}>
       <View
         style={{
@@ -55,7 +57,7 @@ export default function Account({navigation}) {
           <View
             style={{
               // borderWidth: 1,
-              backgroundColor: 'gray',
+              backgroundColor: colors.secondary,
               width: 100,
               height: 100,
               justifyContent: 'center',
@@ -73,16 +75,19 @@ export default function Account({navigation}) {
           <Text
             style={{
               fontSize: 25,
-              fontWeight: 'bold',
+              fontFamily: fonts.secondary[600],
               top: 10,
+              color: colors.white,
             }}>
             {user.nama_lengkap}
           </Text>
           <Divider style={{backgroundColor: colors.border, height: 1}} />
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 18,
+              fontFamily: fonts.secondary[400],
               top: 10,
+              color: colors.white,
             }}>
             {user.tlp}
           </Text>
@@ -93,6 +98,46 @@ export default function Account({navigation}) {
             // backgroundColor: 'green',
             flex: 1,
           }}>
+          <View
+            style={{
+              marginVertical: 5,
+              padding: 10,
+              backgroundColor: colors.white,
+              borderRadius: 10,
+            }}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[600],
+              }}>
+              E-mail
+            </Text>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[400],
+              }}>
+              {user.email}
+            </Text>
+          </View>
+          <View
+            style={{
+              marginVertical: 5,
+              padding: 10,
+              borderRadius: 10,
+              backgroundColor: colors.white,
+            }}>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[600],
+              }}>
+              Alamat
+            </Text>
+            <Text
+              style={{
+                fontFamily: fonts.secondary[400],
+              }}>
+              {user.alamat}
+            </Text>
+          </View>
           <Button
             onPress={handleSave}
             title="Sign Out"
@@ -107,33 +152,7 @@ export default function Account({navigation}) {
               />
             }
             buttonStyle={{
-              backgroundColor: 'grey',
-              height: 45,
-              marginTop: '5%',
-              borderRadius: 10,
-              marginBottom: 20,
-              padding: 20,
-              margin: 5,
-            }}
-          />
-
-          <Button
-            onPress={() => {
-              navigation.navigate('Akses');
-            }}
-            title="Menu Kebutuhan"
-            icon={
-              <Icon
-                style={{
-                  marginRight: 5,
-                }}
-                name="sign-out"
-                size={15}
-                color="white"
-              />
-            }
-            buttonStyle={{
-              backgroundColor: colors.primary,
+              backgroundColor: colors.secondary,
               height: 45,
               marginTop: '5%',
               borderRadius: 10,

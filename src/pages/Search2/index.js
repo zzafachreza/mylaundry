@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -21,12 +21,24 @@ import {fonts} from '../../utils/fonts';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
-export default function Search({navigation, route}) {
-  const [key, setKey] = useState('');
+export default function Search2({navigation, route}) {
+  const [key, setKey] = useState(route.params.key);
   const [cari, setCari] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .post('https://zavalabs.com/mylaundry/api/barang_cari.php', {
+        cari: key,
+      })
+      .then(res => {
+        console.log(res.data);
+        setData(res.data);
+        // setData(res.data.data);
+      });
+  }, []);
 
   const renderItem = ({item}) => {
     return (
@@ -72,116 +84,20 @@ export default function Search({navigation, route}) {
     );
   };
 
-  const pencarian = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCari(true);
-      axios
-        .post('https://zavalabs.com/mylaundry/api/barang_cari.php', {
-          cari: key,
-        })
-        .then(res => {
-          console.log(res.data);
-          setData(res.data);
-          // setData(res.data.data);
-        });
-      setLoading(false);
-    }, 500);
-  };
-
   return (
     <>
       <ScrollView
         style={{
           flex: 1,
+          padding: 10,
         }}>
-        <View
-          style={{
-            // flex: 1,
-            backgroundColor: colors.primary,
-            height: 70,
-            flexDirection: 'row',
-
-            padding: 10,
-          }}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                padding: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Icon type="ionicon" name="arrow-back" color="#FFF" size={25} />
-            </TouchableOpacity>
-            <View
-              style={{
-                flex: 1,
-              }}>
-              <TextInput
-                value={key}
-                onSubmitEditing={pencarian}
-                onChangeText={value => setKey(value)}
-                selectionColor={'#FFF'}
-                autoCapitalize="none"
-                autoFocus
-                style={{
-                  paddingLeft: 20,
-                  borderWidth: 1,
-                  height: 45,
-                  borderRadius: 10,
-                  borderColor: '#FFF',
-                  color: '#FFF',
-                  flexDirection: 'row',
-                  fontSize: 18,
-                  justifyContent: 'center',
-                }}
-              />
-            </View>
-          </View>
-        </View>
-        {cari && (
-          <View
-            style={{
-              flex: 1,
-              padding: 10,
-              backgroundColor: '#FFF',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                // justifyContent: 'center',
-                alignItems: 'center',
-                paddingVertical: 5,
-              }}>
-              <Icon
-                type="ionicon"
-                name="search"
-                color={colors.primary}
-                size={16}
-              />
-              <Text
-                style={{
-                  fontFamily: 'Montserrat-SemiBold',
-                  color: colors.primary,
-                  left: 10,
-                  fontSize: 16,
-                }}>
-                Kata Kunci "{key}"
-              </Text>
-            </View>
-            <FlatList
-              numColumns={2}
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        )}
+        {/* <Text>{key}</Text> */}
+        <FlatList
+          numColumns={2}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
       </ScrollView>
       {loading && (
         <LottieView
@@ -200,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   card: {
-    flex: 0.5,
+    flex: 1,
     shadowColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
