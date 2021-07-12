@@ -6,23 +6,13 @@ import Home from './Home';
 import Account from './Account';
 import Success from './Success';
 import Success2 from './Success2';
-import Berita from './Berita';
 import Tambah from './Tambah';
-import List from './List';
 import ListDetail from './ListDetail';
-import Edit from './Edit';
-import Pelamar from './Pelamar';
-import PelamarDetail from './PelamarDetail';
-import PelamarSelesai from './PelamarSelesai';
 import Search from './Search';
 import Search2 from './Search2';
-import Booking from './Booking';
-import BookingDetail from './BookingDetail';
 import Kategori from './Kategori';
-import PembantuSelsai from './PembantuSelesai';
 import ListData from './ListData';
 import Notifikasi from './Notifikasi';
-import PembantuKonfirmasi from './PembantuKonfirmasi';
 import Barang from './Barang';
 import Cart from './Cart';
 import Checkout from './Checkout';
@@ -32,6 +22,7 @@ import Pemakaian from './Pemakaian';
 import PemakaianTambah from './PemakaianTambah';
 import BarangPemakaian from './BarangPemakaian';
 import Akses from './Akses';
+import Laporan from './Laporan';
 
 export {
   Splash,
@@ -42,23 +33,13 @@ export {
   Account,
   Success,
   Success2,
-  Berita,
   Tambah,
-  List,
-  Edit,
   ListDetail,
-  Pelamar,
-  PelamarDetail,
-  PelamarSelesai,
   Search,
   Search2,
-  Booking,
-  BookingDetail,
   Kategori,
-  PembantuSelsai,
   ListData,
   Notifikasi,
-  PembantuKonfirmasi,
   Barang,
   Cart,
   Checkout,
@@ -68,4 +49,5 @@ export {
   Bayar2,
   BarangPemakaian,
   Akses,
+  Laporan,
 };

@@ -18,19 +18,11 @@ import {
   Success,
   Berita,
   Tambah,
-  List,
   Success2,
   ListDetail,
-  Edit,
-  Pelamar,
-  PelamarDetail,
-  PelamarSelesai,
   Search,
   Kategori,
-  PembantuSelsai,
   ListData,
-  Notifikasi,
-  PembantuKonfirmasi,
   Barang,
   Cart,
   Checkout,
@@ -41,6 +33,7 @@ import {
   Akses,
   Bayar2,
   Search2,
+  Laporan,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -80,21 +73,6 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="Pelamar"
-        component={Pelamar}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PelamarDetail"
-        component={PelamarDetail}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
         name="ListData"
         component={ListData}
         options={{
@@ -117,14 +95,6 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="PelamarSelesai"
-        component={PelamarSelesai}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
         name="Success"
         component={Success}
         options={{
@@ -133,16 +103,16 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="Berita"
-        component={Berita}
+        name="Success2"
+        component={Success2}
         options={{
           headerShown: false,
         }}
       />
 
       <Stack.Screen
-        name="Success2"
-        component={Success2}
+        name="Laporan"
+        component={Laporan}
         options={{
           headerShown: false,
         }}
@@ -237,14 +207,6 @@ export default function Router() {
             };
           },
         })}
-      />
-
-      <Stack.Screen
-        name="PembantuSelesai"
-        component={PembantuSelsai}
-        options={{
-          headerShown: false,
-        }}
       />
 
       <Stack.Screen
@@ -464,14 +426,6 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="PembantuKonfirmasi"
-        component={PembantuKonfirmasi}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
         name="Tambah"
         component={Tambah}
         options={({route, navigation}) => ({
@@ -499,64 +453,10 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="List"
-        component={List}
-        options={({route, navigation}) => ({
-          title: 'LIST DATA',
-          headerTintColor: 'white',
-          headerStyle: {
-            backgroundColor: colors.primary,
-            elevation: 0, // remove shadow on Android
-          },
-          cardStyleInterpolator: ({current, layouts}) => {
-            return {
-              cardStyle: {
-                transform: [
-                  {
-                    translateX: current.progress.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [layouts.screen.width, 0],
-                    }),
-                  },
-                ],
-              },
-            };
-          },
-        })}
-      />
-
-      <Stack.Screen
         name="ListDetail"
         component={ListDetail}
         options={({route, navigation}) => ({
           title: 'LIST DETAIL',
-          headerTintColor: 'white',
-          headerStyle: {
-            backgroundColor: colors.primary,
-            elevation: 0, // remove shadow on Android
-          },
-          cardStyleInterpolator: ({current, layouts}) => {
-            return {
-              cardStyle: {
-                transform: [
-                  {
-                    translateX: current.progress.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [layouts.screen.width, 0],
-                    }),
-                  },
-                ],
-              },
-            };
-          },
-        })}
-      />
-
-      <Stack.Screen
-        name="Edit"
-        component={Edit}
-        options={({route, navigation}) => ({
-          title: 'EDIT DATA',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: colors.primary,

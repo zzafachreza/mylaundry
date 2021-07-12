@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
   TouchableWithoutFeedback,
+  YellowBox,
 } from 'react-native';
 import axios from 'axios';
 import {fonts} from '../../utils/fonts';
@@ -57,6 +58,21 @@ export default function Pemakaian({navigation, route}) {
       style={{
         padding: 10,
       }}>
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Laporan')}
+          style={{
+            backgroundColor: colors.secondary,
+            padding: 10,
+            marginBottom: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: colors.white, fontFamily: fonts.secondary[600]}}>
+            LAPORAN
+          </Text>
+        </TouchableOpacity>
+      </View>
       <View
         style={{
           flexDirection: 'row',

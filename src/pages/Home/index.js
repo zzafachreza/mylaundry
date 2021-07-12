@@ -12,17 +12,11 @@ import {
   TouchableNativeFeedback,
   Linking,
 } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
 import {colors} from '../../utils/colors';
 import {fonts} from '../../utils/fonts';
-import LottieView from 'lottie-react-native';
 import {getData} from '../../utils/localStorage';
-import {FlatListSlider} from 'react-native-flatlist-slider';
-import {Preview, MyGap} from '../../components';
 import {Icon} from 'react-native-elements';
-import MyNews from '../../components/MyNews';
 import MyCarouser from '../../components/MyCarouser';
-import MyKategori from '../../components/MyKategori';
 import MyTerbaik from '../../components/MyTerbaik';
 import axios from 'axios';
 
@@ -53,7 +47,7 @@ export default function Home({navigation}) {
       });
     });
     axios
-      .post('https://zavalabs.com/pembantuku/api/update_token.php', {
+      .post('https://zavalabs.com/mylaundry/api/update_token.php', {
         id_member: user.id,
         token: token,
       })
@@ -108,20 +102,6 @@ export default function Home({navigation}) {
               {user.nama_lengkap}
             </Text>
           </View>
-          {/* <View
-            style={{
-              // flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: colors.white,
-              borderRadius: 50,
-              marginRight: 25,
-            }}>
-            <Image
-              style={{width: 80, height: 80}}
-              source={require('../../assets/logo.png')}
-            />
-          </View> */}
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Cart')}

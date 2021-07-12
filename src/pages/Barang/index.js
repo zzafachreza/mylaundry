@@ -34,6 +34,7 @@ export default function Barang({navigation, route}) {
       console.log('data user', res);
       setUser(res);
     });
+    modalizeRef.current.open();
   }, []);
 
   const MyListData = ({label, value}) => {

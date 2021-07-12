@@ -27,6 +27,9 @@ export default function MyCarouser() {
 
   const [data, setData] = useState([
     {
+      image: require('../../assets/mylaundry.png'),
+    },
+    {
       image: require('../../assets/slide1.png'),
     },
     {

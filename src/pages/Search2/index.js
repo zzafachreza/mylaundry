@@ -79,6 +79,12 @@ export default function Search2({navigation, route}) {
               Rp. {new Intl.NumberFormat().format(item.harga)} / {item.uom}
             </Text>
           </View>
+          <View
+            style={{
+              flex: 1,
+            }}>
+            <Text style={styles.subTitle}>{item.keterangan}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
